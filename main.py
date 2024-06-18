@@ -20,22 +20,34 @@ def make_dic(text):
             char_count[char] += 1
     return char_count
 
+def sort_on(dic):
+    return dic["num"]
+
 def main ():
     path = "books/frankenstein.txt"
     with open(path) as f:
         file_contents = f.read()
 
+    word_count = word_counting (file_contents)
+
     cleaned_text = cleaning_text(file_contents)
 
-    dic = make_dic(file_contents)
+    dic = make_dic(cleaned_text)
     
+    dic_list = []
+    for d in dic:
+        dic_list.append({"char": d, "num": dic[d]})
     
-    word_count = word_counting (file_contents)
+    dic_list.sort(reverse=True, key=sort_on)
+   
 
     print(f"--- Begin report of {path} ---")
     print(f"{word_count} words found in the document")
     print("")
-    print(char_count)
+    for d in dic_list:
+        char = d["char"]
+        num = d["num"]
+        print(f"The \'{char}\' character was found {num} times")
     print("--- End report ---")
 
 main()

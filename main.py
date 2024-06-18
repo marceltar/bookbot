@@ -1,8 +1,7 @@
 def main ():
     book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
-
-    word_count = word_counting (text)
+    num_words = get_num_words(text)
 
     cleaned_text = cleaning_text(text)
 
@@ -16,7 +15,7 @@ def main ():
    
 
     print(f"--- Begin report of {book_path} ---")
-    print(f"{word_count} words found in the document")
+    print(f"{num_words} words found in the document")
     print("")
     for d in dic_list:
         char = d["char"]
@@ -29,6 +28,11 @@ def get_book_text(path):
     with open(path) as f:
         return f.read()
 
+# count how many words in text
+def get_num_words(text):
+    words = text.split()
+    return len(words)
+
 # removes non-alpha characters and makes all lowercase
 def cleaning_text(text):
     cleaned_text = []
@@ -37,9 +41,7 @@ def cleaning_text(text):
             cleaned_text.append(char.lower())
     return cleaned_text
 
-# count how many words in text
-def word_counting(text):
-    return(len(text.split()))
+
 
 # create a dictionary of characters
 def make_dic(text):
